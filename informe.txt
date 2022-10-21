@@ -1,0 +1,24 @@
+GZIP:
+Cuando corremos el servidor en gzip.js sin utilizar la compresion de gzip observamos que la velocidad de respuesta es 6.8 mb.
+Cuando utililzamos la compresion de gzip la velocidad de respuesta baja de forma significativa (1.6 mb).
+
+Modo fork y modo cluster:
+Cuando corremos los servidores en modo fork y en modo cluster observamos:
+La media de respuesta por segundo en modo cluster (500) es mas rapida que en modo fork (397).
+Los milisegundos de latencia son mas altos en modo fork (10.1) que el modo cluster (2).
+El modo cluster se muestra mas eficiente que el fork.
+
+Artillery y prof process:
+Corrimos el servidor en artillery.js en modo FORK.
+Realizamos un analisis completo de performance del servidor.
+Realizamos el test con --prof de node.js y analizamos los resultados obtenidos con --prof process.
+Utlizamos Artillery en linea de comandos para emular 50 conexiones concurrentes.
+Con el inspect de chrome DevTools analizamos los milisegundos que demora la ejecucion de la aplicacion.
+Podemos observar que donde mas demora la aplicacion es el calculo matematico.
+
+Autocannon y Ox:
+Corrimos el servidor en gzip.js para realizar el teste de carga.
+Con autocannon emulamos 100 conexiones concurrentes en 20 segundos.
+En el grafico de flama podemos observar que hay procesos que estan demorando la ejecucion del stack.
+Sin poder identificar claramente que demora la ejecucion deducimos que es el calculo matematico el responsable.
+Liberado de los procesos que demoran el stack el resto de la aplicacion corre sin demoras.
